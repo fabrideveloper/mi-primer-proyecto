@@ -1,0 +1,100 @@
+.contenedor_card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0px 0;
+}
+
+.contenedor_imagenes {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0;
+  padding: 0;
+}
+
+.imagenes {
+  width: 35%;
+  height: 40rem;
+
+  border-radius: 10px;
+  border: rgb(119, 114, 114) solid 5px;
+  margin: 0px 0;
+  object-fit: fill;
+  border-radius: 20px;
+}
+
+.contenedor_botones {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin: 0;
+}
+
+.botones {
+  --x: 50%;
+  --y: 50%;
+  width: 13%;
+  height: 3rem;
+  margin: 0 5px;
+  background: white;
+  border-radius: 20px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: white;
+  box-shadow: 5px 5px rgba(153, 126, 126, 0.15);
+  transition: all 0.4s ease;
+  border: blue 2px solid;
+  background: linear-gradient(#000, #000) padding-box,
+    radial-gradient(farthest-corner at var(--x) var(--y), #00c9a7, #845ec2)
+      border-box;
+  cursor: pointer;
+  outline: none;
+}
+.botones:hover {
+  border-radius: 30px;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(#969191, #afacac) padding-box,
+    radial-gradient(farthest-corner at var(--x) var(--y), #00c9a7, #845ec2)
+      border-box;
+}
+
+@media (max-width: 950px) {
+  .imagenes {
+    width: 40%;
+  }
+  .botones {
+    width: 18%;
+    height: 4rem;
+    margin: 0 10px;
+  }
+}
+@media (max-width: 850px) {
+  .imagenes {
+    width: 45%;
+  }
+  .botones {
+    width: 18%;
+    height: 4rem;
+    margin: 0 10px;
+  }
+}
+@media (max-width: 730px) {
+  .imagenes {
+    width: 50%;
+  }
+  .botones {
+    width: 18%;
+    height: 4rem;
+    margin: 0 10px;
+  }
+}

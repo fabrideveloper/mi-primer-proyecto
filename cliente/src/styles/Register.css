@@ -1,0 +1,257 @@
+.contenedor_principal_formulario {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 7% auto;
+  background-color: #273f70;
+  border-radius: 20px;
+}
+.contenedor_formulario_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  margin: 20px 30px;
+}
+.titulo_formulario_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 5px 0;
+  padding: 0;
+  font-size: 30px;
+  font-weight: 700;
+  font-family: "Open Sans Condensed", sans-serif;
+  text-transform: uppercase;
+
+  color: #091733;
+}
+
+.contenedor_input_usuario_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin: 10px 0px;
+}
+.input_usuario_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 2px 0;
+  border: none;
+  border-bottom: 2px solid white;
+  background-color: #273f70;
+
+  color: #fff;
+  font-size: 18px;
+  font-family: "Oleo Script", cursive;
+  text-shadow: 1px 0 0 #fff;
+  font-weight: normal;
+}
+
+.contenedor_input_email_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin: 10px 0px;
+}
+.input_email_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 2px 0;
+  border: none;
+  border-bottom: 2px solid white;
+  background-color: #273f70;
+  color: #fff;
+  font-size: 18px;
+  font-family: "Oleo Script", cursive;
+  text-shadow: 1px 0 0 #fff;
+  font-weight: normal;
+}
+
+.contenedor_input_contraseña_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin: 10px 0px;
+}
+.input_contraseña_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 2px 0;
+  border: none;
+  border-bottom: 2px solid white;
+  background-color: #273f70;
+  color: #fff;
+  font-size: 18px;
+  font-family: "Oleo Script", cursive;
+  text-shadow: 1px 0 0 #fff;
+  font-weight: normal;
+}
+
+.contenedor_input_confircontraseña_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin: 10px 0px;
+}
+.input_confirmcontraseña_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 2px 0;
+  border: none;
+  border-bottom: 2px solid white;
+  background-color: #273f70;
+  color: #fff;
+  font-size: 18px;
+  font-family: "Oleo Script", cursive;
+  text-shadow: 1px 0 0 #fff;
+  font-weight: normal;
+}
+
+.contenedor_input_provincia_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin: 10px 0px;
+}
+.input_provincia_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 2px 0;
+  border: none;
+  border-bottom: 2px solid white;
+  background-color: #273f70;
+  color: #fff;
+  font-size: 18px;
+  font-family: "Oleo Script", cursive;
+  text-shadow: 1px 0 0 #fff;
+  font-weight: normal;
+}
+
+.contenedor_input_sexo_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin: 10px 0px;
+}
+.input_sexo_registro {
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.nombre_input_sexo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+
+  font-size: 18px;
+  font-family: "Oleo Script", cursive;
+  text-shadow: 1px 0 0 #fff;
+  font-weight: normal;
+  color: #fff;
+}
+
+.boton_submit_registro {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  margin: 20px 0;
+  border: 2px solid rgb(34, 31, 31);
+  background-color: cornflowerblue;
+  border-radius: 15px;
+  box-shadow: 0px 2px 2px 2px rgb(71, 28, 28);
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(41, 39, 39);
+  transition: all 0.4s ease;
+}
+.boton_submit_registro:hover {
+  border: 2px solid rgb(126, 106, 106);
+  background-color: rgb(14, 42, 95);
+  border-radius: 30px;
+  box-shadow: 0px 0px 0px 0px rgb(71, 28, 28);
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(182, 172, 172);
+}
+
+.texto_input_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 15px;
+  margin: 0;
+  font-family: "Original Surfer", cursive;
+  color: #fff;
+  font-weight: normal;
+}
+.errors_inputs_formulario_registro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  color: #f38686;
+}
+.separador_inputs_errors {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+}

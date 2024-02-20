@@ -1,0 +1,167 @@
+.contenedor_productos {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-areas:
+    "imagengrande"
+    "textos"
+    "imagenes ";
+  padding-top: 7%;
+}
+.contenedor_imagenprincipal {
+  grid-area: imagengrande;
+  width: 100%;
+  height: 30rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+.imagen_principal {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: fill;
+  border-radius: 20px;
+  border: rgb(109, 100, 100) solid 6px;
+}
+.contenedor_textos {
+  width: 100%;
+  height: 100%;
+  grid-area: textos;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10px 0;
+  border-bottom: 2px solid black;
+}
+
+.titulo_portada {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 25px;
+  font-weight: 400;
+  color: black;
+  margin: 7px 0;
+  padding: 0;
+  text-align: center;
+}
+.parrafos {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: grey;
+  margin: 7px 0;
+  padding: 0;
+  text-align: center;
+}
+.contenedor_botones_portada {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 30px;
+  margin: 20px 0;
+}
+.botones_portada {
+  --x: 50%;
+  --y: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: white;
+  box-shadow: 5px 5px rgba(153, 126, 126, 0.15);
+  transition: all 0.4s ease;
+  border: rgb(87, 87, 158) 2px solid;
+  background: linear-gradient(#000, #000) padding-box,
+    radial-gradient(farthest-corner at var(--x) var(--y), #00c9a7, #845ec2)
+      border-box;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 0 10px;
+  text-align: center;
+}
+.botones_portada:hover {
+  border-radius: 40px;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(#969191, #afacac) padding-box,
+    radial-gradient(farthest-corner at var(--x) var(--y), #00c9a7, #845ec2)
+      border-box;
+}
+.contenedor_imagenes {
+  width: 100%;
+  height: 100%;
+  grid-area: imagenes;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.contenedor_cardproductos_mayor {
+  width: 100%;
+  height: 100%;
+  margin: 30px 0;
+}
+
+@media (max-width: 1080px) {
+  .contenedor_productos {
+    padding-top: 9%;
+  }
+  .imagen_principal {
+    width: 99%;
+    object-fit: fill;
+  }
+}
+@media (max-width: 950px) {
+  .contenedor_productos {
+    padding-top: 11%;
+  }
+  .imagen_principal {
+    width: 98%;
+    object-fit: fill;
+  }
+  .contenedor_botones_portada {
+    width: 45%;
+  }
+}
+@media (max-width: 850px) {
+  .contenedor_productos {
+    padding-top: 12%;
+  }
+  .imagen_principal {
+    width: 97%;
+    object-fit: fill;
+  }
+
+  .contenedor_botones_portada {
+    width: 50%;
+  }
+}
+@media (max-width: 730px) {
+  .contenedor_productos {
+    padding-top: 15%;
+  }
+  .imagen_principal {
+    width: 95%;
+    object-fit: fill;
+  }
+
+  .titulo {
+    font-size: 20px;
+    text-align: start;
+  }
+  .parrafos {
+    text-align: start;
+    font-size: 20px;
+  }
+
+  .contenedor_botones_portada {
+    width: 60%;
+  }
+}
