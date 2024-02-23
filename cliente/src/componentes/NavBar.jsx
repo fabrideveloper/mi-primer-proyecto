@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/NavBar.css";
 import { UseAuth } from "../contexto/ContextoUsuarioAuth";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,15 +8,22 @@ import { MdEdit } from "react-icons/md";
 import { PiListFill } from "react-icons/pi";
 import { FaWindowClose } from "react-icons/fa";
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
+import { RiLogoutBoxFill } from "react-icons/ri";
 
 function NavBar() {
   const { Autenticado, Usuarios, CerrarSesion } = UseAuth();
   const {
     //ESTADOS DE USUARIO
     Portadas,
+    Productos,
     //ESTADOS DE CAMBIOS DE PAGINAS
     CambiarPag,
     setCambiarPag,
+    ManejoEstadoInputNavBar,
+    setManejoEstadoInputNavBar,
+    Buscador,
+
+    mostrarProductosBusqueda,
   } = UseProductos();
 
   const Params = useParams();
@@ -25,6 +32,14 @@ function NavBar() {
   const Logout = () => {
     CerrarSesion();
     setCambiarPag(false);
+  };
+  const handleChange = (e) => {
+    mostrarProductosBusqueda(e);
+  };
+  const SubmitInputSearch = (e) => {
+    e.preventDefault();
+    setManejoEstadoInputNavBar({ submit: true });
+    console.log(ManejoEstadoInputNavBar.submit);
   };
 
   return (
@@ -47,13 +62,38 @@ function NavBar() {
             <strong className="titulo">bienvenido </strong>
             <h2 className="nombre">{Usuarios.usuario}</h2>
           </div>
-          <div className="contenedor_input_search">
+          <form
+            onSubmit={SubmitInputSearch}
+            className="contenedor_input_search"
+          >
             <input
               className="input_search"
               type="search"
               placeholder="busca tu publicacion"
+              value={ManejoEstadoInputNavBar.onchange}
+              onChange={(e) => {
+                handleChange(e);
+              }}
             />
-          </div>
+            {ManejoEstadoInputNavBar.onchange && !ManejoEstadoInputNavBar.submit
+              ? Buscador.map((elemento) => (
+                  <div
+                    key={elemento._id}
+                    className="contenedor_lista_busqueda_input_search"
+                    onClick={(e) => {
+                      let objeto = e.target.label;
+                      setManejoEstadoInputNavBar({
+                        onchange: objeto,
+                      });
+                    }}
+                  >
+                    <option className="items_busqueda_input_search">
+                      {elemento.producto}
+                    </option>
+                  </div>
+                ))
+              : ""}
+          </form>
           <div className="contenedor_botones_navbar">
             <button className="botones_navbar" onClick={Logout}>
               cerrar sesion
@@ -94,7 +134,8 @@ function NavBar() {
               <PiListFill className="icono_barra" />
               <ul className="contenedor_lista_responsive">
                 <li className="items_lista_responsive" onClick={Logout}>
-                  cerrar sesion
+                  <span>cerrar sesion</span>
+                  <RiLogoutBoxFill />
                 </li>
                 <div className="contenedor_sublista">
                   <li className="items_lista_responsive">
@@ -128,6 +169,7 @@ function NavBar() {
                     setCambiarPag(false);
                   }}
                 >
+                  <span>guardar</span>
                   <FaWindowClose />
                 </li>
               </ul>

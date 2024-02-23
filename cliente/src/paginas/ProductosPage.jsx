@@ -14,6 +14,8 @@ function ProductosPage() {
     //ESTADO DE CAMBIO DE PAGINA
     CambiarPag,
     setCambiarPag,
+    ManejoEstadoInputNavBar,
+    Buscador,
 
     //FUNCIONES DE USUARIO
     MostrarProductos,
@@ -77,16 +79,27 @@ function ProductosPage() {
       ))}
 
       <div className="contenedor_imagenes">
-        {Productos.map((elemento) => (
-          <div className="contenedor_cardproductos_mayor">
-            <CardProductos
-              elemento={elemento}
-              key={elemento._id}
-              Navegar={Navegar}
-              EliminarProducto={EliminarProducto}
-            />
-          </div>
-        ))}
+        {ManejoEstadoInputNavBar.submit
+          ? Buscador.map((elemento) => (
+              <div className="contenedor_cardproductos_mayor">
+                <CardProductos
+                  elemento={elemento}
+                  key={elemento._id}
+                  Navegar={Navegar}
+                  EliminarProducto={EliminarProducto}
+                />
+              </div>
+            ))
+          : Productos.map((elemento) => (
+              <div className="contenedor_cardproductos_mayor">
+                <CardProductos
+                  elemento={elemento}
+                  key={elemento._id}
+                  Navegar={Navegar}
+                  EliminarProducto={EliminarProducto}
+                />
+              </div>
+            ))}
       </div>
     </div>
   );

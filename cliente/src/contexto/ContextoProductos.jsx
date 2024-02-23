@@ -31,8 +31,11 @@ export const ProductosProvider = ({ children }) => {
 
   //ESTADOS DE CAMBIOS DE PAGINAS
   const [CambiarPag, setCambiarPag] = useState([""]);
-  const [FormEdition, setFormEdition] = useState([""]);
-  const [FormEdition1, setFormEdition1] = useState([""]);
+  const [ManejoEstadoInputNavBar, setManejoEstadoInputNavBar] = useState({
+    onchange: "",
+    submit: false,
+  });
+  const [Buscador, setBuscador] = useState([]);
 
   //PRODUCTOS
   const MostrarProductos = async () => {
@@ -40,6 +43,7 @@ export const ProductosProvider = ({ children }) => {
       const res = await PeticionProductos();
       console.log(res.data);
       setProductos(res.data);
+      setBuscador(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +88,21 @@ export const ProductosProvider = ({ children }) => {
     const res = await PeticionEliminarProducto(id);
     if (res.status == 200) {
       setProductos(Productos.filter((e) => e._id !== id));
+      setBuscador(Buscador.filter((elemento) => elemento._id !== id));
     }
+  };
+  const mostrarProductosBusqueda = (e) => {
+    let nuevoarray = [...Productos];
+    setManejoEstadoInputNavBar({
+      onchange: e.target.value,
+      submit: true && false,
+    });
+
+    setBuscador(
+      nuevoarray.filter((elemento) =>
+        elemento.producto.toLowerCase().includes(e.target.value.toLowerCase())
+      )
+    );
   };
 
   //PORTADA
@@ -148,6 +166,7 @@ export const ProductosProvider = ({ children }) => {
       }, 4000);
     }
   }, [Errors]);
+
   return (
     <ContextoProductos.Provider
       value={{
@@ -158,10 +177,11 @@ export const ProductosProvider = ({ children }) => {
         //ESTADOS PARA CAMBIAR PAGINA
         CambiarPag,
         setCambiarPag,
-        FormEdition,
-        setFormEdition,
-        FormEdition1,
-        setFormEdition1,
+        ManejoEstadoInputNavBar,
+        setManejoEstadoInputNavBar,
+        Buscador,
+        setBuscador,
+
         //FUNCIONES SOBRE ESTADOS DE USUARIOS
         MostrarProductos,
         CrearProducto,
@@ -173,6 +193,7 @@ export const ProductosProvider = ({ children }) => {
         ActualizarPortada,
         EliminarPortada,
         EliminarProducto,
+        mostrarProductosBusqueda,
         //
       }}
     >

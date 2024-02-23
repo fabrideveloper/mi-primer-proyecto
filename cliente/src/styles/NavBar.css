@@ -71,14 +71,18 @@
 }
 
 .contenedor_input_search {
-  display: flex;
+  display: inline-block;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+
   width: 100%;
   height: 100%;
 }
+
 .input_search {
-  width: 90%;
+  margin: 20px auto;
+  width: 100%;
   height: 50%;
   font-size: 17px;
   font-family: "Times New Roman", Times, serif;
@@ -86,6 +90,29 @@
   color: #101011;
   border-radius: 5px;
   border: 2px solid #101011;
+}
+.contenedor_lista_busqueda_input_search {
+  position: relative;
+  top: -27%;
+  width: 100%;
+  height: 40%;
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #00c9a7;
+}
+.items_busqueda_input_search {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
+  background-color: #6d6d72;
+  border-bottom: 2px solid black;
 }
 
 .contenedor_botones_navbar {
@@ -225,13 +252,13 @@
     height: 8%;
   }
   .contenedor_bienvenida {
-    width: 100%;
+    width: 90%;
   }
   .input_search {
-    width: 100%;
+    width: 90%;
   }
   .contenedor_botones_navbar {
-    width: 60%;
+    width: 65%;
   }
   .contenedor_lista_agregar_publicacion {
     display: none;
@@ -255,6 +282,7 @@
     border: #1d1d1f 4px solid;
     border-radius: 40px;
     transition: all 0.4s;
+    position: relative;
   }
   .icono_barra:hover {
     background-color: #c0c0d3;
@@ -288,6 +316,11 @@
     background-color: #252446;
     color: #c0c0d3;
     padding: 15px 0;
+    transition: all 0.4s;
+  }
+  .items_lista_responsive:hover {
+    background-color: #bcbbce;
+    color: #000004;
   }
   .contenedor_sublista {
     width: 100%;
@@ -310,9 +343,12 @@
 }
 @media (max-width: 730px) {
   .contenedor_bienvenida {
-    width: 80%;
+    width: 90%;
   }
   .input_search {
+    width: 90%;
+  }
+  .contenedor_lista_busqueda_input_search {
     width: 90%;
   }
   .contenedor_botones_navbar {

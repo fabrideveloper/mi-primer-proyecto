@@ -70,17 +70,12 @@ function LoginPage() {
           )}
         </div>
         {Errors && (
-          <span>
+          <span className="errors_backend">
             {Errors.map((e) => (
               <span>{e}</span>
             ))}
           </span>
         )}
-        <div className="contenedor_check">
-          <Checkbox className="checkbox" {...register("checkbox")}>
-            Recordarme la contraseña
-          </Checkbox>
-        </div>
 
         <div className="contenedor_boton">
           <button className="boton_submit">iniciar sesion</button>

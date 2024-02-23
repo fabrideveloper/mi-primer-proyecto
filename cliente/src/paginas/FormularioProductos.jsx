@@ -5,11 +5,13 @@ import "../styles/FormularioPortada.css";
 import { TipoProducto } from "../componentes/Helpers";
 import { UseProductos } from "../contexto/ContextoProductos";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { FaSquareCheck } from "react-icons/fa6";
+import { FaWindowClose } from "react-icons/fa";
 
 function FormularioProductos() {
   const {
     //ESTADOS DE CAMBIAR PAGINA
-    Errors,
+
     CambiarPag,
     setCambiarPag,
     //FUNCIONES DE USUARIO
@@ -22,6 +24,7 @@ function FormularioProductos() {
     //
   } = UseProductos();
   const [mostrarError, setmostrarError] = useState({
+    checked: "",
     errorPortada: "",
     erorrProducto: "",
   });
@@ -59,15 +62,20 @@ function FormularioProductos() {
         Navegar("/productos");
       }
     } else {
-      setmostrarError({ erorrProducto: "error al cargar producto" });
+      setmostrarError({
+        erorrProducto: "error al cargar producto",
+        checked: "submit",
+      });
     }
 
     boton.disabled = false;
   });
   const OnSubmitPortada = handleSubmit(async (data) => {
     let boton = document.getElementById("botonsubmitportada");
+
     if (data) {
       boton.disabled = true;
+      setmostrarError({ checked: "2" });
     }
     if (data.imagen) {
       if (Params.id && data.imagen) {
@@ -84,11 +92,15 @@ function FormularioProductos() {
         Navegar("/productos");
       }
     } else {
-      setmostrarError({ errorPortada: "error al subir portada" });
+      setmostrarError({
+        errorPortada: "error al subir portada",
+        checked: "submit",
+      });
     }
 
     boton.disabled = false;
   });
+
   useEffect(() => {
     if (mostrarError.errorPortada) {
       setTimeout(() => {
@@ -147,25 +159,45 @@ function FormularioProductos() {
             <span className="texto_input_portada">
               selecciona tu imagen portada
             </span>
-            <input
-              type="file"
-              name="imagen"
-              onChange={(e) => {
-                const dato = e.target.files[0].name;
-                if (
-                  dato.includes(".png") ||
-                  dato.includes(".jpg") ||
-                  dato.includes(".jpeg")
-                ) {
-                  setValue("imagen", e.target.files[0]);
-                } else {
-                  setmostrarError({ errorPortada: "debe subir una imagen" });
-                }
-              }}
-              required={true}
-              className="inputs_file_imagen_principal_portada"
-            />
-            {mostrarError.errorPortada}
+            <div className="contenedor_input_file_formulario_portada">
+              <input
+                type="file"
+                name="imagen"
+                onChange={(e) => {
+                  if (
+                    e.target.files[0].name.includes(".png") ||
+                    e.target.files[0].name.includes(".jpg") ||
+                    e.target.files[0].name.includes(".jpeg")
+                  ) {
+                    setValue("imagen", e.target.files[0]);
+                    setmostrarError({ checked: "ok" });
+                  } else {
+                    setmostrarError({
+                      errorPortada: "debe subir una imagen",
+                      checked: "null",
+                    });
+                    setValue("imagen", null);
+                  }
+                }}
+                required={true}
+                className="inputs_file_imagen_principal_portada"
+              />
+              {mostrarError.errorPortada && mostrarError.checked == "null" ? (
+                <FaWindowClose className="icon_checkeds_false_portada" />
+              ) : (
+                ""
+              )}
+              {mostrarError.checked == "ok" && (
+                <FaSquareCheck className="icon_checkeds_true_portada" />
+              )}
+              {mostrarError.errorPortada && mostrarError.checked == "null" ? (
+                <span className="errors_submit">
+                  {mostrarError.errorPortada}
+                </span>
+              ) : (
+                ""
+              )}
+            </div>
           </label>
 
           <div className="contenedor_inputs_portada_principal">
@@ -180,7 +212,11 @@ function FormularioProductos() {
               })}
               className="inputs_portada_principal"
             />
-            {errors.listaprecios && <span>{errors.listaprecios.message}</span>}
+            {errors.listaprecios && (
+              <span className="errors_hook_form_portada">
+                {errors.listaprecios.message}
+              </span>
+            )}
             <span className="texto_input_portada">fecha</span>
             <input
               type="date"
@@ -192,7 +228,11 @@ function FormularioProductos() {
               })}
               className="inputs_portada_principal"
             />
-            {errors.fecha && <span>{errors.fecha.message}</span>}
+            {errors.fecha && (
+              <span className="errors_hook_form_portada">
+                {errors.fecha.message}
+              </span>
+            )}
             <span className="texto_input_portada">ofertas y combos</span>
             <input
               type="text"
@@ -204,7 +244,18 @@ function FormularioProductos() {
               })}
               className="inputs_portada_principal"
             />
-            {errors.ofertas && <span>{errors.ofertas.message}</span>}
+            {errors.ofertas && (
+              <span className="errors_hook_form_portada">
+                {errors.ofertas.message}
+              </span>
+            )}
+            {mostrarError.errorPortada && mostrarError.checked == "submit" ? (
+              <span className="errors_submit_final">
+                {mostrarError.errorPortada}
+              </span>
+            ) : (
+              ""
+            )}
           </div>
 
           <button
@@ -231,7 +282,11 @@ function FormularioProductos() {
               })}
               className="input_producto"
             />
-            {errors.producto && <span>{errors.producto.message}</span>}
+            {errors.producto && (
+              <span className="errors_productos_frontend">
+                {errors.producto.message}
+              </span>
+            )}
           </label>
 
           <label
@@ -252,7 +307,11 @@ function FormularioProductos() {
               <option value="normal">normal</option>
             </select>
           </label>
-          {errors.tipoventa && <span>{errors.tipoventa.message}</span>}
+          {errors.tipoventa && (
+            <span className="errors_productos_frontend">
+              {errors.tipoventa.message}
+            </span>
+          )}
 
           <label
             htmlFor="tipo de productos"
@@ -278,32 +337,65 @@ function FormularioProductos() {
                 </option>
               ))}
             </select>
-            {errors.tipoproducto && <span>{errors.tipoproducto.message}</span>}
+            {errors.tipoproducto && (
+              <span className="errors_productos_frontend">
+                {errors.tipoproducto.message}
+              </span>
+            )}
           </label>
 
           <label htmlFor="image" className="contenedor_input_imagen">
             <span className="texto_inputs">imagen</span>
-            <input
-              type="file"
-              name="imagen"
-              onChange={(e) => {
-                const dato = e.target.files[0].name;
+            <div className="contenedor_file_producto">
+              <input
+                type="file"
+                name="imagen"
+                onChange={(e) => {
+                  const dato = e.target.files[0].name;
 
-                if (
-                  dato.includes(".png") ||
-                  dato.includes(".jpg") ||
-                  dato.includes(".jpeg")
-                ) {
-                  setValue("imagen", e.target.files[0]);
-                } else {
-                  setmostrarError({ erorrProducto: "debe subir una imagen" });
-                }
-              }}
-              required={true}
-              className="input_imagen"
-            />
+                  if (
+                    dato.includes(".png") ||
+                    dato.includes(".jpg") ||
+                    dato.includes(".jpeg")
+                  ) {
+                    setValue("imagen", e.target.files[0]);
+                    setmostrarError({ checked: "ok" });
+                    console.log(e.target.files[0]);
+                  } else {
+                    setmostrarError({
+                      erorrProducto: "debe subir una imagen",
+                      checked: "null",
+                    });
+                    setValue("imagen", null);
+                  }
+                }}
+                required={true}
+                className="input_imagen"
+              />
+              {mostrarError.erorrProducto && mostrarError.checked == "null" ? (
+                <FaWindowClose className="icon_checkeds_false_producto" />
+              ) : (
+                ""
+              )}
+              {mostrarError.checked == "ok" && (
+                <FaSquareCheck className="icon_checkeds_true_producto" />
+              )}
+            </div>
+            {mostrarError.erorrProducto && mostrarError.checked == "null" ? (
+              <span className="errors_submit_producto">
+                {mostrarError.erorrProducto}
+              </span>
+            ) : (
+              ""
+            )}
+            {mostrarError.erorrProducto && mostrarError.checked == "submit" ? (
+              <span className="errors_submit_producto">
+                {mostrarError.erorrProducto}
+              </span>
+            ) : (
+              ""
+            )}
           </label>
-          {mostrarError.erorrProducto}
 
           <div className="contenedor_boton_submit">
             <button id="botonsubmitproducto" className="boton_submit_publicar">
