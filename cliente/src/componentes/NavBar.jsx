@@ -9,6 +9,9 @@ import { PiListFill } from "react-icons/pi";
 import { FaWindowClose } from "react-icons/fa";
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 import { RiLogoutBoxFill } from "react-icons/ri";
+import { FiArrowUpLeft } from "react-icons/fi";
+import { FaSearch } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 
 function NavBar() {
   const { Autenticado, Usuarios, CerrarSesion } = UseAuth();
@@ -22,7 +25,8 @@ function NavBar() {
     ManejoEstadoInputNavBar,
     setManejoEstadoInputNavBar,
     Buscador,
-
+    setBuscador,
+    // FUNCIONES DE USUARIO
     mostrarProductosBusqueda,
   } = UseProductos();
 
@@ -35,9 +39,18 @@ function NavBar() {
   };
   const handleChange = (e) => {
     mostrarProductosBusqueda(e);
+    if (e.target.value) {
+      let objeto = document.getElementById("contenedor_principal_input_search");
+      objeto.style.borderRadius = "20px 20px 0px 0px";
+    } else {
+      let objeto = document.getElementById("contenedor_principal_input_search");
+      objeto.style.borderRadius = "20px ";
+    }
   };
   const SubmitInputSearch = (e) => {
     e.preventDefault();
+    let objeto = document.getElementById("contenedor_principal_input_search");
+    objeto.style.borderRadius = "20px ";
     setManejoEstadoInputNavBar({ submit: true });
     console.log(ManejoEstadoInputNavBar.submit);
   };
@@ -62,45 +75,87 @@ function NavBar() {
             <strong className="titulo">bienvenido </strong>
             <h2 className="nombre">{Usuarios.usuario}</h2>
           </div>
+
           <form
+            id="contenedor_principal_input_search"
             onSubmit={SubmitInputSearch}
-            className="contenedor_input_search"
+            className="contenedor_principal_input_search"
           >
-            <input
-              className="input_search"
-              type="search"
-              placeholder="busca tu publicacion"
-              value={ManejoEstadoInputNavBar.onchange}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-            />
-            {ManejoEstadoInputNavBar.onchange && !ManejoEstadoInputNavBar.submit
-              ? Buscador.map((elemento) => (
+            <div className="contendor_secundario_input_search">
+              <FaSearch className="icono_input_search" />
+              <input
+                className="input_search"
+                type="text"
+                placeholder="busca tu publicacion"
+                value={ManejoEstadoInputNavBar.onchange}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+              <IoMdClose
+                className="icono_input_search"
+                onClick={(e) => {
+                  let objeto = document.getElementById(
+                    "contenedor_principal_input_search"
+                  );
+                  objeto.style.borderRadius = "20px ";
+                  setManejoEstadoInputNavBar({
+                    onchange: "",
+                  });
+                }}
+              />
+              <FaSearch
+                className="icono_input_search"
+                type="submit"
+                onClick={SubmitInputSearch}
+              />
+            </div>
+
+            {ManejoEstadoInputNavBar.onchange &&
+              Buscador.map((elemento) => (
+                <div
+                  className="contenedor_principal_lista_busqueda_input_search"
+                  key={elemento._id}
+                  onClick={(e) => {
+                    let objeto = e.target.childNodes[0].data;
+                    console.log(objeto);
+                    setManejoEstadoInputNavBar({
+                      onchange: objeto,
+                    });
+                    let nuevoarray = [...Productos];
+                    setBuscador(
+                      nuevoarray.filter((elemento) =>
+                        elemento.producto
+                          .toLowerCase()
+                          .startsWith(e.target.childNodes[0].data.toLowerCase())
+                      )
+                    );
+                  }}
+                >
                   <div
-                    key={elemento._id}
+                    id="contenedor_lista_input_search"
                     className="contenedor_lista_busqueda_input_search"
-                    onClick={(e) => {
-                      let objeto = e.target.label;
-                      setManejoEstadoInputNavBar({
-                        onchange: objeto,
-                      });
-                    }}
                   >
-                    <option className="items_busqueda_input_search">
-                      {elemento.producto}
-                    </option>
+                    <span className="items_busqueda_input_search">
+                      <section className="hijo_items_busqueda_input_search">
+                        <span className="texto_input_busqueda_search">
+                          {elemento.producto}
+                          <FiArrowUpLeft className="icono_input_search_busqueda" />
+                        </span>
+                      </section>
+                    </span>
                   </div>
-                ))
-              : ""}
+                </div>
+              ))}
           </form>
+
           <div className="contenedor_botones_navbar">
-            <button className="botones_navbar" onClick={Logout}>
+            <span className="botones_navbar" onClick={Logout}>
               cerrar sesion
-            </button>
+            </span>
 
             <div className="contenedor_lista_agregar_publicacion">
-              <button className="botones_navbar">agregar publicacion</button>
+              <span className="botones_navbar">agregar publicacion</span>
               <ul className="lista_agregar_publicacion">
                 {Portadas.length == 0 && (
                   <li
@@ -122,14 +177,14 @@ function NavBar() {
                 </li>
               </ul>
             </div>
-            <button
+            <span
               className="botones_navbar"
               onClick={() => {
                 setCambiarPag(false);
               }}
             >
               guardar y ver pagina
-            </button>
+            </span>
             <i className="contenedor_barra_responsive">
               <PiListFill className="icono_barra" />
               <ul className="contenedor_lista_responsive">

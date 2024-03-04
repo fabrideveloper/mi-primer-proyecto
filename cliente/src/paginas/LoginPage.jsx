@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Checkbox } from "antd";
+import { Button, Checkbox, Form, Input } from "antd";
 
 import "../styles/Login.css";
 import { useForm } from "react-hook-form";
@@ -31,8 +31,8 @@ function LoginPage() {
         <div className="contenedor_inputs">
           <input
             type="text"
-            className="inputs"
-            placeholder="email"
+            className="inputs_login"
+            placeholder="correo electronico"
             {...register("email", {
               required: {
                 value: true,
@@ -44,6 +44,7 @@ function LoginPage() {
               },
             })}
           />
+
           {errors.email && (
             <span className="errors_frontend">{errors.email.message}</span>
           )}
@@ -52,7 +53,7 @@ function LoginPage() {
         <div className="contenedor_inputs">
           <input
             type="password"
-            className="inputs"
+            className="inputs_login"
             placeholder="contraseña"
             {...register("contraseña", {
               required: {

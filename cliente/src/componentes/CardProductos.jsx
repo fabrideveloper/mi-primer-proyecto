@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import "../styles/CardProductos.css";
 import { UseProductos } from "../contexto/ContextoProductos";
 
-function CardProductos({
-  elemento,
-
-  Navegar,
-  EliminarProducto,
-}) {
+function CardProductos({ elemento, Navegar, EliminarProducto }) {
   const EditarPublicacion = () => {
     Navegar(`/productos/actualizar/${elemento._id}`);
+  };
+  const eliminarPublicacion = () => {
+    EliminarProducto(elemento._id);
   };
   const { CambiarPag } = UseProductos();
 

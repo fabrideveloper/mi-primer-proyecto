@@ -14,7 +14,7 @@
   justify-content: space-between;
   flex-direction: column;
   border-radius: 20px;
-  background-color: #232325;
+  background-color: #e7e7ee;
   width: 45%;
   height: 100%;
 }
@@ -29,7 +29,7 @@
   font-size: 30px;
   font-family: serif;
 
-  color: #d0d0d3;
+  color: #212122;
 }
 .contenedor_inputs {
   width: 60%;
@@ -42,18 +42,18 @@
   position: relative;
 }
 
-.inputs {
+.inputs_login {
   width: 100%;
-  height: 60%;
+  height: 50%;
+  border-radius: 5px;
+  border: 1px solid blue;
 
   font-family: serif;
   font-size: 20px;
   font-weight: 500;
-  background-color: #232325;
-  color: #d0d0d3;
-  text-align: center;
-  border: none;
-  border-bottom: #d0d0d3 solid 3px;
+}
+.inputs_login:focus {
+  outline: none;
 }
 .errors_frontend {
   width: 100%;
@@ -64,7 +64,7 @@
   margin: 5px 0;
   position: absolute;
   top: 65%;
-  color: rgb(150, 45, 45);
+  color: rgb(245, 9, 9);
 }
 
 .contenedor_boton {

@@ -15,6 +15,7 @@ function ProductosPage() {
     CambiarPag,
     setCambiarPag,
     ManejoEstadoInputNavBar,
+    setManejoEstadoInputNavBar,
     Buscador,
 
     //FUNCIONES DE USUARIO
@@ -27,17 +28,29 @@ function ProductosPage() {
   const Navegar = useNavigate();
 
   useEffect(() => {
-    MostrarPortadas();
-    MostrarProductos();
-
     if (CambiarPag == "") {
       setCambiarPag(true);
     }
   }, []);
+  useEffect(() => {
+    MostrarPortadas();
+    MostrarProductos();
+  }, []);
   if (Productos.length == 0 && Portadas.length == 0)
     return <h1>no hay productos y portada</h1>;
   return (
-    <div className="contenedor_productos">
+    <div
+      className="contenedor_productos"
+      onClick={() => {
+        if (ManejoEstadoInputNavBar.onchange) {
+          setManejoEstadoInputNavBar({ onchange: "" });
+        }
+        let objeto = document.getElementById(
+          "contenedor_principal_input_search"
+        );
+        objeto.style.borderRadius = "20px";
+      }}
+    >
       {Portadas.map((e) => (
         <>
           <div className="contenedor_imagenprincipal" key={e._id}>

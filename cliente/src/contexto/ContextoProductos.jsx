@@ -27,8 +27,8 @@ export const UseProductos = () => {
 export const ProductosProvider = ({ children }) => {
   const [Productos, setProductos] = useState([]);
   const [Portadas, setPortadas] = useState([]);
-  const [Errors, setErrors] = useState([""]);
-
+  const [Errors, setErrors] = useState([{ hola: "", check: false }]);
+  const [Check, setCheck] = useState(false);
   //ESTADOS DE CAMBIOS DE PAGINAS
   const [CambiarPag, setCambiarPag] = useState([""]);
   const [ManejoEstadoInputNavBar, setManejoEstadoInputNavBar] = useState({
@@ -53,18 +53,23 @@ export const ProductosProvider = ({ children }) => {
     try {
       const res = await PeticionCrearProducto(producto);
       console.log(res);
-    } catch (error) {
-      console.log(error);
-      if (Array.isArray(error.response.data)) {
-        return setErrors(error.response.data);
+      if (res.status == 200) {
+        setCheck(true);
+        console.log(Check);
       }
-      setErrors([error.response.data]);
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors([{ hola: error.response.data }]);
+      }
+
+      setErrors([{ hola: error.response.data }]);
     }
   };
 
   const MostrarProducto = async (id) => {
     try {
       const res = await PeticionProducto(id);
+
       return res.data;
     } catch (error) {
       console.log(error);
@@ -75,6 +80,10 @@ export const ProductosProvider = ({ children }) => {
     try {
       const res = await PeticionActualizarProducto(producto, id);
       console.log(res.data);
+      if (res.status == 200) {
+        setCheck(true);
+        console.log(Check);
+      }
     } catch (error) {
       console.log(error);
       if (Array.isArray(error.response.data)) {
@@ -93,16 +102,18 @@ export const ProductosProvider = ({ children }) => {
   };
   const mostrarProductosBusqueda = (e) => {
     let nuevoarray = [...Productos];
+
     setManejoEstadoInputNavBar({
       onchange: e.target.value,
-      submit: true && false,
+      submit: false,
     });
-
     setBuscador(
       nuevoarray.filter((elemento) =>
-        elemento.producto.toLowerCase().includes(e.target.value.toLowerCase())
+        elemento.producto.toLowerCase().startsWith(e.target.value.toLowerCase())
       )
     );
+
+    console.log(Buscador);
   };
 
   //PORTADA
@@ -162,8 +173,8 @@ export const ProductosProvider = ({ children }) => {
   useEffect(() => {
     if (Errors.length > 0) {
       setTimeout(() => {
-        setErrors("");
-      }, 4000);
+        setErrors([{ hola: "" }]);
+      }, 6000);
     }
   }, [Errors]);
 
@@ -174,6 +185,9 @@ export const ProductosProvider = ({ children }) => {
         Productos,
         Portadas,
         Errors,
+        Check,
+        setCheck,
+
         //ESTADOS PARA CAMBIAR PAGINA
         CambiarPag,
         setCambiarPag,

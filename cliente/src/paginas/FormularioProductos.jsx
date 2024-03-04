@@ -21,7 +21,11 @@ function FormularioProductos() {
     CrearPortada,
     MostrarPortada,
     ActualizarPortada,
-    //
+
+    //ESTADOS DE PRODUCTOS
+    Errors,
+    Check,
+    setCheck,
   } = UseProductos();
   const [mostrarError, setmostrarError] = useState({
     checked: "",
@@ -43,23 +47,13 @@ function FormularioProductos() {
   const OnSubmit = handleSubmit(async (values) => {
     let boton = document.getElementById("botonsubmitproducto");
 
-    if (values) {
-      boton.disabled = true;
-    }
+    boton.disabled = true;
+
     if (values.imagen) {
       if (Params.id && values.imagen) {
         await ActualizarProductos(values, Params.id);
       } else {
         await CrearProducto(values);
-
-        console.log(values);
-      }
-      if (
-        values.imagen.name.includes(".jpg") ||
-        values.imagen.name.includes(".png") ||
-        values.imagen.name.includes(".jpeg")
-      ) {
-        Navegar("/productos");
       }
     } else {
       setmostrarError({
@@ -84,13 +78,7 @@ function FormularioProductos() {
         await CrearPortada(data);
         console.log(data);
       }
-      if (
-        data.imagen.name.includes(".jpg") ||
-        data.imagen.name.includes(".jpeg") ||
-        data.imagen.name.includes(".png")
-      ) {
-        Navegar("/productos");
-      }
+      Navegar("/productos");
     } else {
       setmostrarError({
         errorPortada: "error al subir portada",
@@ -123,7 +111,8 @@ function FormularioProductos() {
       if (Params.id && localitation.pathname.includes("productos")) {
         const respuesta = await MostrarProducto(Params.id);
         console.log(respuesta);
-        // setValue("imagen", respuesta.imagen.url);
+        setValue("imagen", respuesta.imagen.url);
+
         setValue("producto", respuesta.producto);
         setValue("tipoventa", respuesta.tipoventa);
         setValue("tipoproducto", respuesta.tipoproducto);
@@ -136,7 +125,7 @@ function FormularioProductos() {
     async function seleccionarPortada() {
       if (Params.id && localitation.pathname.includes("portadas")) {
         const portadaseleccionada = await MostrarPortada(Params.id);
-        //setValue("imagen", portadaseleccionada.imagen.url);
+        setValue("imagen", portadaseleccionada.imagen.url);
         setValue("listaprecios", portadaseleccionada.listaprecios);
         setValue("fecha", portadaseleccionada.fecha);
         setValue("ofertas", portadaseleccionada.ofertas);
@@ -144,13 +133,19 @@ function FormularioProductos() {
     }
     seleccionarPortada();
   }, []);
+  useEffect(() => {
+    if (Check == true) {
+      Navegar("/productos");
+      setCheck(false);
+    }
+  }, [Check]);
 
   return (
     <div className="contenedor_formulario">
       {localitation.pathname.includes("portada") && (
         <form
           onSubmit={OnSubmitPortada}
-          className="formulario_producto_principal"
+          className="formulario_portada_principal"
         >
           <label
             htmlFor="imagen portada"
@@ -191,7 +186,7 @@ function FormularioProductos() {
                 <FaSquareCheck className="icon_checkeds_true_portada" />
               )}
               {mostrarError.errorPortada && mostrarError.checked == "null" ? (
-                <span className="errors_submit">
+                <span className="errors_portada_input_file">
                   {mostrarError.errorPortada}
                 </span>
               ) : (
@@ -201,54 +196,62 @@ function FormularioProductos() {
           </label>
 
           <div className="contenedor_inputs_portada_principal">
-            <span className="texto_input_portada">listas de precios</span>
-            <input
-              type="text"
-              {...register("listaprecios", {
-                required: {
-                  value: true,
-                  message: "este campo es requerido",
-                },
-              })}
-              className="inputs_portada_principal"
-            />
-            {errors.listaprecios && (
-              <span className="errors_hook_form_portada">
-                {errors.listaprecios.message}
-              </span>
-            )}
-            <span className="texto_input_portada">fecha</span>
-            <input
-              type="date"
-              {...register("fecha", {
-                required: {
-                  value: true,
-                  message: "este campo es requerido",
-                },
-              })}
-              className="inputs_portada_principal"
-            />
-            {errors.fecha && (
-              <span className="errors_hook_form_portada">
-                {errors.fecha.message}
-              </span>
-            )}
-            <span className="texto_input_portada">ofertas y combos</span>
-            <input
-              type="text"
-              {...register("ofertas", {
-                required: {
-                  value: true,
-                  message: "este campo es requerido",
-                },
-              })}
-              className="inputs_portada_principal"
-            />
-            {errors.ofertas && (
-              <span className="errors_hook_form_portada">
-                {errors.ofertas.message}
-              </span>
-            )}
+            <div className="contenedor_secundario_inputs_portada">
+              <span className="texto_input_portada">listas de precios</span>
+              <textarea
+                type="text"
+                cols="3"
+                {...register("listaprecios", {
+                  required: {
+                    value: true,
+                    message: "este campo es requerido",
+                  },
+                })}
+                className="inputs_portada_principal"
+              />
+              {errors.listaprecios && (
+                <span className="errors_hook_form_portada">
+                  {errors.listaprecios.message}
+                </span>
+              )}
+            </div>
+            <div className="contenedor_secundario_inputs_portada">
+              <span className="texto_input_portada">fecha</span>
+              <input
+                type="date"
+                {...register("fecha", {
+                  required: {
+                    value: true,
+                    message: "este campo es requerido",
+                  },
+                })}
+                className="inputs_portada_principal"
+              />
+              {errors.fecha && (
+                <span className="errors_hook_form_portada">
+                  {errors.fecha.message}
+                </span>
+              )}
+            </div>
+            <div className="contenedor_secundario_inputs_portada">
+              <span className="texto_input_portada">ofertas y combos</span>
+              <textarea
+                type="text"
+                cols="3"
+                {...register("ofertas", {
+                  required: {
+                    value: true,
+                    message: "este campo es requerido",
+                  },
+                })}
+                className="inputs_portada_principal"
+              />
+              {errors.ofertas && (
+                <span className="errors_hook_form_portada">
+                  {errors.ofertas.message}
+                </span>
+              )}
+            </div>
             {mostrarError.errorPortada && mostrarError.checked == "submit" ? (
               <span className="errors_submit_final">
                 {mostrarError.errorPortada}
@@ -282,6 +285,7 @@ function FormularioProductos() {
               })}
               className="input_producto"
             />
+            {Errors && Errors.map((e, i) => <div key={i}>{e.hola}</div>)}
             {errors.producto && (
               <span className="errors_productos_frontend">
                 {errors.producto.message}
@@ -347,6 +351,14 @@ function FormularioProductos() {
           <label htmlFor="image" className="contenedor_input_imagen">
             <span className="texto_inputs">imagen</span>
             <div className="contenedor_file_producto">
+              {mostrarError.erorrProducto && mostrarError.checked == "null" ? (
+                <FaWindowClose className="icon_checkeds_false_producto" />
+              ) : (
+                ""
+              )}
+              {mostrarError.checked == "ok" && (
+                <FaSquareCheck className="icon_checkeds_true_producto" />
+              )}
               <input
                 type="file"
                 name="imagen"
@@ -372,14 +384,6 @@ function FormularioProductos() {
                 required={true}
                 className="input_imagen"
               />
-              {mostrarError.erorrProducto && mostrarError.checked == "null" ? (
-                <FaWindowClose className="icon_checkeds_false_producto" />
-              ) : (
-                ""
-              )}
-              {mostrarError.checked == "ok" && (
-                <FaSquareCheck className="icon_checkeds_true_producto" />
-              )}
             </div>
             {mostrarError.erorrProducto && mostrarError.checked == "null" ? (
               <span className="errors_submit_producto">

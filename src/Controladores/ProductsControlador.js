@@ -8,6 +8,11 @@ export const CrearProducto = async (req, res) => {
   const { producto, tipoventa, tipoproducto } = req.body;
 
   try {
+    const datoProducto = await Producto.findOne({ producto });
+    if (datoProducto)
+      return res
+        .status(401)
+        .json(["este tipo de nombre de producto ya existe, ingrese uno nuevo"]);
     let imagen = null;
     if (req.files.imagen) {
       const imagenSubida = await SubirImagen(req.files.imagen.tempFilePath);
@@ -105,12 +110,13 @@ export const ActualizarProducto = async (req, res) => {
 export const EliminarProducto = async (req, res) => {
   const { id } = req.params;
   try {
-    const eliminarProducto = await Producto.findOneAndDelete(id);
+    const eliminarProducto = await Producto.findByIdAndDelete(id);
     if (!eliminarProducto)
       return res.status(401).json(["no se pudo eliminar producto"]);
 
     if (eliminarProducto.imagen.public_id) {
       await EliminarImagen(eliminarProducto.imagen.public_id);
+      //await fs.remove(req.files.imagen.tempFilePath);
     }
 
     return res.status(200).json(["producto eliminado"]);

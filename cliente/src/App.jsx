@@ -7,8 +7,6 @@ import RegisterPage from "./paginas/RegisterPage";
 import ProductosPage from "./paginas/ProductosPage";
 import FormularioProductos from "./paginas/FormularioProductos";
 import NavBar from "./componentes/NavBar";
-import HomePage from "./paginas/HomePage";
-import ProtectorRutaRegister from "./ProtectorRutaRegister";
 
 function App() {
   return (

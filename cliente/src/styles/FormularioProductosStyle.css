@@ -13,16 +13,15 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #b1afe1;
+  background-color: #e7e7ee;
   border-radius: 20px;
 }
 .titulo_formulario {
   color: #040719;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: serif;
   font-size: 25px;
   font-weight: 500;
   text-align: center;
-
   margin: 15px 0;
 }
 
@@ -44,12 +43,13 @@
   border-radius: 0px;
   font-size: 19px;
   color: #040719;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: serif;
   border: none;
-  border-bottom: #121f22 solid 2px;
+  border-bottom: #121f22 solid 1px;
   text-align: center;
   margin: 10px 0;
-  background-color: #b1afe1;
+  background-color: #e7e7ee;
+  outline: none;
 }
 
 .contenedor_principal_tipoventa {
@@ -67,16 +67,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 19px;
   font-weight: 400;
-
-  border: #121f22 solid 2px;
+  background-color: #e7e7ee;
+  border: #121f22 solid 1px;
   text-align: center;
   color: #040719;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: serif;
   margin: 10px 10px;
-  background-color: #b1afe1;
+  outline: none;
 }
 .contenedor_input_tipoproducto {
   width: 80%;
@@ -93,16 +93,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 19px;
   font-weight: 400;
-  border: #121f22 solid 2px;
+  border: #121f22 solid 1px;
   text-align: center;
   line-height: 40px;
   color: #040719;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: serif;
   margin: 10px 10px;
-  background-color: #b1afe1;
+  background-color: #e7e7ee;
+  outline: none;
 }
 
 .contenedor_input_imagen {
@@ -121,7 +122,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  flex-direction: row;
+  gap: 10px;
 }
 .input_imagen {
   width: 14rem;
@@ -145,31 +147,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  --x: 50%;
-  --y: 50%;
   width: 100%;
   height: 3rem;
-  background: white;
   border-radius: 20px;
-  font-family: "Times New Roman", Times, serif;
+  font-family: serif;
   font-weight: 500;
   font-size: 18px;
-  color: white;
-  box-shadow: 5px 5px rgba(153, 126, 126, 0.15);
   transition: all 0.4s ease;
-  border: blue 2px solid;
-  background: linear-gradient(#000, #000) padding-box,
-    radial-gradient(farthest-corner at var(--x) var(--y), #00c9a7, #845ec2)
-      border-box;
+  color: #d0d0d3;
+  background-color: #232325;
+  border: 2px solid #d0d0d3;
+  box-shadow: 0px 3px 0px 0px #d0d0d3;
   cursor: pointer;
   margin: 10px 0;
 }
 .boton_submit_publicar:hover {
-  border-radius: 30px;
-  box-shadow: 2px 2px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(#969191, #afacac) padding-box,
-    radial-gradient(farthest-corner at var(--x) var(--y), #00c9a7, #845ec2)
-      border-box;
+  color: #232325;
+  background-color: #d0d0d3;
+  border: 4px solid #d0d0d3;
+  box-shadow: 0px 0px 0px 0px #d0d0d3;
+  border-radius: 40px;
 }
 
 .texto_inputs {
@@ -178,8 +175,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 17px;
+  font-family: serif;
+  font-size: 20px;
   font-weight: 400;
   margin: 5px 0;
 }
@@ -191,31 +188,58 @@
   color: rgb(163, 38, 38);
 }
 .errors_submit_producto {
-  position: absolute;
-  left: 36%;
-  top: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: rgb(163, 38, 38);
 }
 .icon_checkeds_false_producto {
-  position: absolute;
-  left: 20%;
+  left: 25%;
   font-size: 40px;
   background-color: #e4dddd;
   color: #b92b2b;
 }
 .icon_checkeds_true_producto {
-  position: absolute;
-  left: 20%;
+  left: 25%;
   font-size: 40px;
   background-color: #17161d;
   color: #16ad0e;
 }
 
-@media (max-width: 880px) {
+@media (min-width: 980px) and (max-width: 1230px) {
   .formulario_producto {
     width: 65%;
+  }
+  .errors_submit_producto {
+    left: 40.5%;
+  }
+}
+@media (min-width: 780px) and (max-width: 980px) {
+  .formulario_producto {
+    width: 70%;
+  }
+  .icon_checkeds_false_producto {
+    left: 18%;
+  }
+  .icon_checkeds_true_producto {
+    left: 18%;
+  }
+
+  .errors_submit_producto {
+    left: 38%;
+  }
+}
+@media (min-width: 550px) and (max-width: 780px) {
+  .formulario_producto {
+    width: 80%;
+  }
+  .icon_checkeds_false_producto {
+    left: 14%;
+  }
+  .icon_checkeds_true_producto {
+    left: 14%;
+  }
+  .errors_submit_producto {
+    left: 35%;
   }
 }
